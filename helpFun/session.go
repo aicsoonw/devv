@@ -28,3 +28,10 @@ func genSessId(id in.UsId) (*in.SessUs, error) {
 	err := errors.New("Невозможный выход из цикла ")
 	return nil, err
 }
+
+// Деактивирует сессию для данного пользователя
+func UpdateSessActivity(sid in.SessId) error {
+	sql := `UPDATE session SET active = $1 WHERE sess_id = $2`
+	_, err := db.Exec(context.Background(), sql, false, sid)
+	return err
+}
